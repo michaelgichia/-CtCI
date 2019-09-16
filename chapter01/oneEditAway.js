@@ -33,25 +33,34 @@ function sortString(str) {
 function oneEditAway(s1, s2) {
   const stringOne = sortString(s1);
   const stringTwo = sortString(s2);
+
   if (stringOne === stringTwo) {
     return true;
   }
 
   let value = true;
   let maxEdits = 1;
-
-  const [longestString, shortestString] = stringOne.length > stringTwo.length ? [stringOne, stringTwo] : [stringTwo, stringOne];
+  let counter = 0;
+  const [longestString, shortestString] =
+    stringOne.length > stringTwo.length
+      ? [stringOne, stringTwo]
+      : [stringTwo, stringOne];
 
   if (
     longestString.length === shortestString.length ||
     longestString.length - 1 === shortestString.length
   ) {
+    // pale and pales
     for (let index = 0; index < shortestString.length; index++) {
-      if (!shortestString.includes(longestString[index])) {
+      console.log({ counter })
+      if (!longestString.includes(shortestString[index])) {
         maxEdits--;
       }
       if (maxEdits < 0) {
         value = false;
+        counter++;
+        console.log({ counter })
+        break;
       }
     }
   } else {
@@ -60,11 +69,11 @@ function oneEditAway(s1, s2) {
   return value;
 }
 
-assert(oneEditAway("pale", "pale"), true);
-assert(oneEditAway("pale", "elap"), true);
-assert(oneEditAway("pale", "bale"), true);
-assert(oneEditAway("pales", "pale"), true);
-assert(oneEditAway("plmfklale", "bale"), false);
-assert(oneEditAway("dale", "bake"), false);
-assert(oneEditAway("pale", "bake"), false);
-
+// assert(oneEditAway("pale", "pale"), true);
+// assert(oneEditAway("abc", "defg"), false);
+// assert(oneEditAway("pale", "elap"), true);
+// assert(oneEditAway("pale", "bale"), true);
+// assert(oneEditAway("pales", "pale"), true);
+assert(oneEditAway("plmowfklaleqqqqqqqqq", "plmoofooaleqqqqqqqqq"), false);
+// assert(oneEditAway("dale", "bake"), false);
+// assert(oneEditAway("pale", "bake"), false);
